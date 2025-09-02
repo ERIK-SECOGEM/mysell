@@ -83,4 +83,11 @@ class SubscriptionController extends Controller
 
         return back()->with('success', 'Tu suscripción fue reactivada correctamente.');
     }
+
+    public function updatePayment(Request $request)
+    {
+        $request->user()->updateDefaultPaymentMethod($request->payment_method);
+        
+        return back()->with('success', 'Método de pago actualizado.');
+    }
 }

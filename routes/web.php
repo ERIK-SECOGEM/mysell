@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified', 'check.subscription'])->group(function ()
     Route::post('/subscription/cancel', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');
     Route::post('/subscription/cancel-now', [SubscriptionController::class, 'cancelNow'])->name('subscription.cancel.now');
     Route::post('/subscription/resume', [SubscriptionController::class, 'resume'])->name('subscription.resume');
+    Route::post('/subscription/update-payment', [SubscriptionController::class, 'updatePayment'])->name('subscription.update.payment');
 });
 
 require __DIR__.'/auth.php';
