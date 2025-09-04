@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'check.subscription' => \App\Http\Middleware\CheckSubscription::class,
+            'seller' => \App\Http\Middleware\EnsureSeller::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

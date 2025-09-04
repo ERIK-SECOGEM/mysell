@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\PublicVehicleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +32,14 @@ Route::middleware(['auth', 'verified', 'check.subscription'])->group(function ()
     Route::post('/subscription/cancel-now', [SubscriptionController::class, 'cancelNow'])->name('subscription.cancel.now');
     Route::post('/subscription/resume', [SubscriptionController::class, 'resume'])->name('subscription.resume');
     Route::post('/subscription/update-payment', [SubscriptionController::class, 'updatePayment'])->name('subscription.update.payment');
+
+    //Rutas vehículos
+    Route::resource('/vehicles', VehicleController::class);
+    Route::post('/vehicles/{vehicle}/publish', [VehicleController::class, 'publish'])->name('vehicles.publish');
+    Route::get('/vehicles/{vehicle}/qr', [VehicleController::class, 'qr'])->name('vehicles.qr');
+    Route::get('/vehicles/{vehicle}/qr-download', [VehicleController::class, 'qrDownload'])->name('vehicles.qr.download');
 });
+
+Route::get('/p/{slug}', [PublicVehicleController::class, 'show'])->name('vehicles.public.show');
 
 require __DIR__.'/auth.php';
